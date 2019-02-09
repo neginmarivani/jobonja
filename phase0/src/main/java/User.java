@@ -20,4 +20,12 @@ public class User {
     public ArrayList<Skill> getSkills() {
         return skills;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", skills=" + skills +
+                '}';
+    }
 }

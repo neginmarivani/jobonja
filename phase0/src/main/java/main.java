@@ -45,6 +45,7 @@ public class main {
                 jabonjaProjects.add(new Project(titleTemp,projectSkillTemp,budgetTemp));
             }
             else if(cmdName.equals("bid")){
+
                 JSONObject jObject = new JSONObject(jsonData);
                 String usrName = jObject.getString("biddingUser");
                 User usrTemp = getUser(jabonjaUsers ,usrName);
@@ -52,11 +53,16 @@ public class main {
                 Project proTemp = getProject(jabonjaProjects , proName);
                 int budgetTemp = jObject.getInt("bidAmount");
                 Bid bidTemp = new Bid(proTemp ,usrTemp ,budgetTemp);
-                if(bidTemp.isValid())
-                    proTemp.addBid(bidTemp);
 
+                if(bidTemp.isValid()){
+                    proTemp.addBid(bidTemp);
+                }
             }
             else if (cmdName.equals("auction")){
+                for (int i=0;i< jabonjaUsers.size();i++)
+                    System.out.println("user "+i+" : "+jabonjaUsers.get(i).toString());
+                for (int i=0 ;i<jabonjaProjects.size() ;i++)
+                    System.out.println("project "+i+" : "+jabonjaProjects.get(i).toString());
                 //find the best bid
                 JSONObject jObject = new JSONObject(jsonData);
                 String project = jObject.getString("projectTitle");

@@ -37,6 +37,16 @@ public class Project {
     public Project() {
     }
 
+    @Override
+    public String toString() {
+        return "Project{" +
+                "title='" + title + '\'' +
+                ", prerequisites=" + prerequisites +
+                ", budget=" + budget +
+                ", bids=" + bids +
+                '}';
+    }
+
     public User findBestBid(){
 
         int max = 0;

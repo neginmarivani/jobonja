@@ -10,6 +10,14 @@ public class Skill{
     public Skill() {
     }
 
+    @Override
+    public String toString() {
+        return "Skill{" +
+                "name='" + name + '\'' +
+                ", point=" + point +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

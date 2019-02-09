@@ -17,28 +17,30 @@ public class Bid {
             return false;
         ArrayList<Skill> prerequisites = project.getPrerequisites();
         ArrayList<Skill> userSkills = user.getSkills();
-        boolean flag=true;
+        boolean flag=false;
         for(int i =0;i<prerequisites.size() ; i++){
-            if(!flag)
+            if(!flag && i !=0)
                 break;
+            flag = false;
             for(int j=0;j<userSkills.size(); j++){
-                if(prerequisites.get(i).getName().equals(userSkills.get(j).getName())){
-                    if (prerequisites.get(i).getPoint() <= userSkills.get(j).getPoint() )
-                        flag=true;
-                    else{
-                        flag=false;
-                    }
-
-                }
-                else{
-                    flag=false;
+                if(flag)
+                    break;
+                if(prerequisites.get(i).getName().equals(userSkills.get(j).getName())) {
+                    if (prerequisites.get(i).getPoint() <= userSkills.get(j).getPoint())
+                        flag = true;
                 }
             }
         }
-        if(flag)
-            return true;
-        else
-            return false;
+        return flag;
+    }
+
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "project=" + project.getTitle() +
+                ", user=" + user.getUserName() +
+                ", bidAmount=" + bidAmount +
+                '}';
     }
 
     public Project getProject() {
