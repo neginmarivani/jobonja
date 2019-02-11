@@ -1,12 +1,12 @@
 register {"username":"user1","skills":[{"name":"HTML","points":10},{"name":"CSS","points":20}]}
 register {"username":"user2","skills":[{"name":"HTML","points":20}]}
 register {"username":"user3","skills":[{"name":"HTML","points":40},{"name":"CSS","points":50}]}
-register {"username":"user4","skills":[{"name":"HTML","points":20},{"name":"CSS","points":30},{"name":"java","points":20}]}
+register {"username":"user4","skills":[{"name":"HTML","points":30},{"name":"CSS","points":50},{"name":"java","points":20}]}
 addProject {"title":"project1","skills":[{"name":"HTML","points":20},{"name":"CSS","points":30}],"budget":1000000}
 addProject {"title":"project2","skills":[{"name":"HTML","points":40},{"name":"CSS","points":50}],"budget":10000000}
 addProject {"title":"project3","skills":[{"name":"HTML","points":60},{"name":"CSS","points":70}],"budget":10000}
 bid {"biddingUser":"user1","projectTitle":"project1","bidAmount":90000}
 bid {"biddingUser":"user2","projectTitle":"project1","bidAmount":90000}
 bid {"biddingUser":"user3","projectTitle":"project1","bidAmount":90000}
-bid {"biddingUser":"user4","projectTitle":"project1","bidAmount":9000000}
+bid {"biddingUser":"user4","projectTitle":"project1","bidAmount":10000}
 auction {"projectTitle":"project1"}

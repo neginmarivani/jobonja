@@ -26,13 +26,6 @@ public class Project {
     public ArrayList<Skill> getPrerequisites() {
         return prerequisites;
     }
-    public Skill getSkill(String name ){
-        for(int i=0;i<prerequisites.size();i++){
-            if(prerequisites.get(i).getName().equals(name))
-                return prerequisites.get(i);
-        }
-        return new Skill();
-    }
 
     public Project() {
     }
@@ -53,12 +46,13 @@ public class Project {
         User selected = new User();
         for(int i=0;i<bids.size() ;i++){
 
-            ArrayList<Skill> userSkill = bids.get(i).getUser().getSkills();
+            ArrayList<Skill> skill = bids.get(i).getProject().getPrerequisites();
             int score =0;
-            for(int j=0;j<userSkill.size() ;j++){
-                score += 1000*Math.pow(userSkill.get(j).getPoint() - this.getSkill(userSkill.get(j).getName()).getPoint(),2) ;
-                score += bids.get(i).getBidAmount() - budget;
+            for(int j=0;j<skill.size() ;j++){
+                score += 10000*Math.pow( bids.get(i).getUser().getSkill(skill.get(j).getName()).getPoint() - skill.get(j).getPoint(),2) ;
+
             }
+            score += budget - bids.get(i).getBidAmount() ;
             if (score > max ){
                 max = score;
                 selected = bids.get(i).getUser();

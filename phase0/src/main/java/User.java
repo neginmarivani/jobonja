@@ -13,6 +13,13 @@ public class User {
     public User() {
     }
 
+    public Skill getSkill(String name ){
+        for(int i=0;i<skills.size();i++){
+            if(skills.get(i).getName().equals(name))
+                return skills.get(i);
+        }
+        return new Skill();
+    }
     public String getUserName() {
         return userName;
     }

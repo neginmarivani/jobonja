@@ -59,11 +59,7 @@ public class main {
                 }
             }
             else if (cmdName.equals("auction")){
-                for (int i=0;i< jabonjaUsers.size();i++)
-                    System.out.println("user "+i+" : "+jabonjaUsers.get(i).toString());
-                for (int i=0 ;i<jabonjaProjects.size() ;i++)
-                    System.out.println("project "+i+" : "+jabonjaProjects.get(i).toString());
-                //find the best bid
+
                 JSONObject jObject = new JSONObject(jsonData);
                 String project = jObject.getString("projectTitle");
                 Project proTemp = getProject(jabonjaProjects , project);
