@@ -1,96 +1,38 @@
-import java.sql.Timestamp;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class Project {
-    private String title;
-    private String id;
-    private String description;
-    private String imageUrl;
-    private Timestamp deadline ;
-    private ArrayList <Skill> prerequisites = new ArrayList<Skill>();
-    private int budget;
+public class project implements IPage {
 
-    public String getId() {
-        return id;
-    }
+   private ArrayList<Project> projects;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public Timestamp getDeadline() {
-        return deadline;
-    }
-
-    public Project(String title, String id, String description, String imageUrl, Timestamp deadline, ArrayList<Skill> prerequisites, int budget) {
-        this.title = title;
-        this.id = id;
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.deadline = deadline;
-        this.prerequisites = prerequisites;
-        this.budget = budget;
-    }
-
-    public Project(String title, ArrayList<Skill> prerequisites, int budget) {
-        this.title = title;
-        this.prerequisites = prerequisites;
-        this.budget = budget;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getBudget() {
-        return budget;
-    }
-
-    public ArrayList<Skill> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public Project() {
+    public project(ArrayList<Project> p) {
+        this.projects = p;
     }
 
     @Override
-    public String toString() {
-        return "Project{" +
-                "title='" + title + '\'' +
-                ", id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", deadline=" + deadline +
-                ", prerequisites=" + prerequisites +
-                ", budget=" + budget +
-                '}';
-    }
-    public String toHtml(){
+    public void HandleRequest(HttpExchange httpExchange) throws IOException {
 
-        String list ="";
-        list += "<li>" ;
-        list += "id :"+ id +"<br/>";
-        list += "title :"+ title +"<br/>";
-        String skills="<ul>";
 
-        for (int j=0;j<prerequisites.size() ; j++){
-            skills += "<li>";
-            skills += prerequisites.get(j).getName()+"<br/>";
-            skills += prerequisites.get(j).getPoint()+"<br/>";
-            skills += "</li>";
+
+        String response = "<!DOCTYPE html> <html dir="+"\""+"rtl"+"\" "+ "lang="+"\""+"fa"+"\""+"> <head>";
+        response += "<meta http-equiv="+"\""+"Content-Language"+"\""+" content="+"\""+"fa"+"\""+">";
+
+        response += "<meta http-equiv="+"\""+"Content-Type"+"\""+" content="+"\""+"text/html"+"\""+"; charset="+"\""+"utf-8"+"\""+">" ;
+        response += "</head> <body><h1>Projects </h1> <ul>" ;
+        for (int i = 0; i < projects.size(); i++) {
+            response += projects.get(i).toHtml();
+
         }
-        list += skills+"</ul>";
-        list += "description : "+ description+"<br/>";
-        list += "budget : "+ budget+"<br/>";
-        list += "deadline : " + deadline+"<br/>";
-        list += "<img src="+ imageUrl+" alt="+title+">";
-        list += "</li>";
+        response += "</ul>";
+        response += "</body>"+ "</html>";
 
-
-        return list;
+        httpExchange.sendResponseHeaders(200, response.getBytes().length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
+
 }
