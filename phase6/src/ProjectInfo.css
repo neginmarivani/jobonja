@@ -12,11 +12,12 @@
     margin-left: auto;
     margin-right: auto;
     margin-top :20px;
-    margin-down:20px;
+    display: inline;
      
   }
   .projectPic{
     text-align: center;
+    display: inline;
   }
   .projectPic img{
     

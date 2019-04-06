@@ -6,7 +6,7 @@ import BidForm from './BidForm';
 class ProjectBox extends Component {
   render() {
     return (
-    <div class = "box" >
+    <div className = "box" >
         <ProjectInfo/>
         <ProjectSkills />
         <BidForm/>

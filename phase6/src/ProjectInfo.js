@@ -4,21 +4,21 @@ import proImg from './images/photo_2017-07-16_08-09-21.jpg'
 class ProjectInfo extends Component {
   render() {
     return (
-        <div class=" container">
-            <div class="row justify-content-center">
+        <div className=" container">
+            <div className="row justify-content-center">
             
-                <div class ="projectPic col-xs-3 col-sm-5 col-md-4 col-lg-2" >
+                <div className ="projectPic col-xs-3 col-sm-5 col-md-4 col-lg-2" >
                     <img  alt="project picture" src={proImg} />
                 </div>
-                <div class = "infoText col-xs-9 col-sm-7 col-md-8 col-lg-10">
+                <div className = "infoText col-xs-9 col-sm-7 col-md-8 col-lg-10">
                 
                         <h3>پروژه طراحی سایت جاب اونجا</h3>
-                            <p class="deadline">
-                            <i class="fa fa-clock"></i>
+                            <p className="deadline">
+                            <i className="fa fa-clock"></i>
                             زمان باقی مانده : ۱۷ دقیقه و ۲۵ ثانیه 
                             </p>
-                            <p class="budget">
-                            <i class="fa fa-money"></i> 
+                            <p className="budget">
+                            <i className="fa fa-money"></i> 
                             بودجه : ۲۵۰۰ تومان
                             </p>
                             <h6>توضیحات </h6>
