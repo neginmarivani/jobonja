@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Footer.css'
 
-class Login extends Component {
+class Footer extends Component {
   render() {
     return (
         <div className="footer">
@@ -11,6 +11,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Footer;
 
 

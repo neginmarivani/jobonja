@@ -1,4 +1,5 @@
 import './App.css';
+import './Fonts.css'
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './Home';
@@ -14,7 +15,7 @@ class App extends Component {
     <Router>
         <div>
           <Nav />
-              <Route exact path='/' component={Home} />
+              <Route path='/home' component={Home} />
               <Route path='/profile' component={Profile} />
               <Route path='/projects' component={Projects} />
               <Route path='/login' component={Login} />
