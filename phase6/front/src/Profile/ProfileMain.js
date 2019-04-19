@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import RemoveSkill from './RemoveSkill';
 import AddPointToSkill from './AddPointToSkill';
-
+import UserSkill from './UserSkill'
 
 class ProfileMain extends Component {
 
@@ -36,25 +36,27 @@ class ProfileMain extends Component {
     var joined = this.state.skill.concat(event.target.value);
     this.setState({ skill: joined })
   }
+ 
 
   render() {
     let renderContainer = false //By default don't render anything
     if(this.state.render) { //If this.state.render == true, which is set to true by the timer.
-        renderContainer = <div className="main" > 
-        <div className="top" > <h1> <br/> </h1></div>
-       <div className="whole">
-           <div className="pic">
+        renderContainer = <div className="profileMainmain" > 
+        <div className="profileMaintop" > <h1> <br/> </h1></div>
+       <div className="profileMainwhole">
+           <div className="profileMainpic">
                   <img  alt="title" src={this.props.user.ImageUrl} />
            </div>
-           <div className="topic">
+           <div className="profileMaintopic">
 
-                   <h1> نام و نام خانوادگی </h1>
-                   <h2> {this.props.user.userName}{this.props.user.userFamilyName} </h2>
+                   <h1> {this.props.user.userName +this.props.user.userFamilyName}</h1>
+                   <h1> {this.props.user.jobTitle} </h1>
+
            </div>
-           <div className="text"> 
+           <div className="profileMaintext"> 
                <p> {this.props.user.bio}</p>
-           </div>
-{console.log(this.props.pageState)}
+           </div> 
+           {this.props.isOtherUser ? <UserSkill user={this.props.user} /> :null}
            {this.props.pageState ?<ChooseSkill onSubmit ={this.handleFormSubmit}/>:null}
            {this.props.pageState ? <RemoveSkill skill={this.state.skill}/>:null}
            {!this.props.pageState ? <AddPointToSkill skill={this.state.skill}/>:null}

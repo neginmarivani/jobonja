@@ -9,7 +9,7 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 import Nav from './main/Nav';
 import Footer from './main/Footer'
-import otherUsers from './Profile/OtherUserProfile'
+import otherUsersprofile from './Profile/OtherUserProfile'
 class App extends Component {
  
   render() {
@@ -20,7 +20,7 @@ class App extends Component {
               <Route path='/home' component={Home} />
               <Route path='/profile' component={Profile} />
               <Route path='/project/:projectId' component={Projects} />
-              <Route path='/users/:userId' component={otherUsers} />
+              <Route path='/users/:userId' component={otherUsersprofile} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
               

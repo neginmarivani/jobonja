@@ -37,8 +37,7 @@ class OtherUserProfile extends Component {
   render() {
     return (
         <div>
-            {console.log(this.state.pageState)}
-          <ProfileMain pageState={this.state.pageState} user={this.state.user}/>
+          <ProfileMain pageState={this.state.pageState} user={this.state.user} isOtherUser={true}/>
           <Footer />
         </div>
     );

@@ -1,13 +1,13 @@
-.main{
+.profileMainmain{
 
     min-height: calc(100vh - 60px - 60px);
 	background-color :#e8dede ;
     font-family: IRANSans;
 }
-.main .top{
+.profileMainmain .profileMaintop{
      height :40%;  
 }
-.main .top h1{
+.profileMainmain .profileMaintop h1{
 
  background-color: #b3f0ff;
    margin: 0px;
@@ -15,26 +15,28 @@
     padding: 25px;
 }
 
-.whole{
+.profileMainwhole{
     display: flex;
    flex-wrap: wrap;
    padding: 0 4px;  
    width:100%;
  }
- .topic{
-     width: 50%;
-     position: absolute;
-     right: 310px;
-     float:right;
- }
- .pic{
+ .userPic img{
+    width: 40px;
+    height: 50px;
+    text-align: center;
+    padding-bottom: 4px;
+    padding-top: 4px;
+
+}
+ .profileMainpic{
    flex: 25%;
    max-width: 30%;
    padding: 0 4px; 
    display: inline-block;
  }
  
- .pic img {
+ .profileMainpic img {
    margin-top: 0px;
    vertical-align: middle;
    width: 170px;
@@ -48,7 +50,7 @@
    right: 120px;
    float:right;
  }
- .topic h1{
+ .profileMaintopic h1{
      flex: 25%;
      max-width: 25%;
      padding: 0 4px; 
@@ -57,14 +59,14 @@
      font-weight: 900;
  
  }
- .topic h2{
+ .profileMaintopic h2{
      flex: 25%;
      max-width: 25%;
      padding: 0 4px; 
      font-size: 1vw;   
  }
- .whole .text {
-     margin-right: 10%;
+  .profileMaintext {
+    margin-right: 10%;
      margin-left: 10%;
      text-align: justify;
  }

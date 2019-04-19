@@ -10,9 +10,13 @@ class Profile extends Component {
       usersList :[]
     };
   }
-
+ 
   componentDidMount=()=>{
-        
+
+    setTimeout(function() { //Start the timer
+      this.setState({render: true}) //After 1 second, set render to true
+    }.bind(this), 1000)
+
     Axios.get('http://localhost:8080/Phase-2/users').then((response )=> {
       
        this.setState({ usersList : response.data}); 
@@ -25,11 +29,15 @@ class Profile extends Component {
     
     console.log(this.state.usersList)
     var found =this.state.usersList.find( (single)=>{return single.id ===1})
+    let renderContainer = false //By default don't render anything
+    if(this.state.render) { //If this.state.render == true, which is set to true by the timer.
+        renderContainer =<div>
+        <ProfileMain pageState={this.state.pageState} user={found } isOtherUser={false}/>
+        <Footer />
+      </div>
+    }
     return (
-        <div>
-          <ProfileMain pageState={this.state.pageState} user={found }/>
-          <Footer />
-        </div>
+      renderContainer
     );
   }
 }

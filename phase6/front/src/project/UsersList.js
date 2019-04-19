@@ -13,7 +13,7 @@ class UsersList extends Component {
       usersList:[]
     };
   }
-  handleRedirect =text =>value =>{
+  handleRedirect =text =>() =>{
         
     this.props.history.push("/users/:"+text)
     

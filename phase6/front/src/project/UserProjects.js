@@ -31,7 +31,7 @@ class UserProjects extends Component {
         });
     }
     render() {
-   
+        console.log(this.state.projectsList)
         return ( 
           <div className="projectsPrevElem" >
             <ul >
