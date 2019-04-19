@@ -1,14 +1,14 @@
 import './App.css';
 import './Fonts.css'
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Home from './Home';
-import Profile from './Profile';
-import Projects from './Projects';
-import Register from './BidForm';
-import Login from './Login';
-import Nav from './Nav';
-import Footer from './Footer'
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Home from './main/Home';
+import Profile from './Profile/Profile';
+import Projects from './project/Projects';
+import Register from './Register/Register';
+import Login from './Login/Login';
+import Nav from './main/Nav';
+import Footer from './main/Footer'
 class App extends Component {
   render() {
     return (
@@ -17,9 +17,10 @@ class App extends Component {
           <Nav />
               <Route path='/home' component={Home} />
               <Route path='/profile' component={Profile} />
-              <Route path='/projects' component={Projects} />
+              <Route path='/project/:projectId' component={Projects} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
+              
              
         </div>
         <Footer/>
