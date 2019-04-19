@@ -4,7 +4,6 @@ class ProjectsPreview extends Component {
    
    
   render() {
-    console.log(this.props.project)
     return (
         <div className="projectsPreview container">
         <div className="row justify-content-center">

@@ -16,7 +16,7 @@ class BidForm extends Component {
         <h6> ثبت پیشنهاد </h6>
        <form onSubmit={this.props.onSubmit}>
 
-       <button type="submit" class="btn btn-primary">ثبت</button>
+       <button type="submit" className="btn btn-primary">ثبت</button>
          <input type="text"  name ="bidAmount" placeholder="پیشنهاد خود را وارد کنید   " onChange={this.handleChange}/>
 
          

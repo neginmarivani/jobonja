@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { withRouter } from "react-router-dom";
 import UserPreview from './UserPreview'
+import { withRouter } from "react-router-dom";
+import { createHashHistory } from 'history'
 import './UserList.css'
+
+export const history = createHashHistory()
 class UsersList extends Component {
   constructor(props){
     super(props);
@@ -10,9 +13,11 @@ class UsersList extends Component {
       usersList:[]
     };
   }
-  handleRedirect =()=>{
-
-  }
+  handleRedirect =text =>value =>{
+        
+    this.props.history.push("/users/:"+text)
+    
+}
   searchUser =()=>{
 
   }
@@ -37,7 +42,7 @@ render() {
         </li>
           {
               this.state.usersList.map((user ,i)=>
-               <li key={i} onClick={this.handleRedirect} value={user}><UserPreview user={user}/>
+               <li key={i} onClick={this.handleRedirect(user.id)}><UserPreview user={user}/>
                 </li> ) 
           }
         </ul>
@@ -46,4 +51,4 @@ render() {
 }
 }
 
-export default UsersList;
+export default withRouter(UsersList);

@@ -23,9 +23,13 @@ class ProjectBox extends Component {
     this.setState({flag :false});
     event.preventDefault();
     const amount = event.target.elements.bidAmount.value;
- 
-    axios.put('http://localhost:8080/Phase-2/saveBidController', { project:this.props.project.id ,bidAmount :amount }).then((response)=> {
-        this.setState({postStatus : response.status , msg : response.data.msg})
+    const params = new URLSearchParams();
+    params.append("project", this.props.project.id);
+    params.append("bidAmount", event.target.elements.bidAmount.value );
+
+    axios.put('http://localhost:8080/Phase-2/saveBidController', params).then((response)=> {
+        this.setState({postStatus : response.status , msg : response.data.msg}
+          )
       },error=>{
         console.log(error)
         this.setState({postStatus : '404' , msg : "server not found"} )
@@ -33,6 +37,7 @@ class ProjectBox extends Component {
   }
 
   render() {
+    console.log(this.state.msg)
     return (
     <div className = "box" >
         <ProjectInfo  project={this.props.project}/>

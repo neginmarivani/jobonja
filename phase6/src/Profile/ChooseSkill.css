@@ -1,0 +1,48 @@
+.chooseSkillskill{
+    width: 80%;
+    height: 50px;
+    position: relative;
+    left:45%;
+    /* margin-left: 70%; */
+}
+.chooseSkilllabel.l1{
+    background-color: #e8dede;
+    width: 80px;
+    height: 32px;
+    display: inline-block;
+    font-size: 1vw;
+    padding: 1px 1px 1px 1px;
+    color: black;
+}
+.chooseSkilllabel.l2{
+    background-color:white;
+    width: 240px;
+    height: 32px;
+    display: inline-block;
+    padding: 1px 1px 1px 1px;
+    font-size: 1vw;
+    border-radius: 4px;
+}
+select.chooseSkillform-control{
+    background-color:#F8F8FF;
+    width: 66%;
+    display: inline-block;
+    height: 28px;
+    /* padding-top: 2px; */
+    position:relative;
+    top:2x;
+    right: 1px;
+    left:1px;
+    bottom: 1px;
+    border-radius: 0px;
+}
+button.chooseSkilllabel.l3{
+    background-color:#0086b3;
+    display: inline-block;
+    width: 33%;
+    height: 25px;
+    padding: 2px 2px 2px 2px;
+    color: white;
+    border-radius: 5px;
+    
+}
