@@ -6,7 +6,8 @@ public class Project {
     private String id;
     private String description;
     private String imageUrl;
-    private Timestamp deadline ;
+    private int deadline ;
+    private int creationDate;
     private ArrayList <Skill> prerequisites = new ArrayList<Skill>();
     private int budget;
 
@@ -22,11 +23,16 @@ public class Project {
         return imageUrl;
     }
 
-    public Timestamp getDeadline() {
+    public int getDeadline() {
         return deadline;
     }
 
-    public Project(String title, String id, String description, String imageUrl, Timestamp deadline, ArrayList<Skill> prerequisites, int budget) {
+    public int getCreationDate() {
+        return creationDate;
+    }
+
+    public Project(String title, String id, String description, String imageUrl, int deadline,
+                   int creationDate, ArrayList<Skill> prerequisites, int budget) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -34,6 +40,8 @@ public class Project {
         this.deadline = deadline;
         this.prerequisites = prerequisites;
         this.budget = budget;
+        this.creationDate=creationDate;
+
     }
 
     public Project(String title, ArrayList<Skill> prerequisites, int budget) {
@@ -57,40 +65,5 @@ public class Project {
     public Project() {
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "title='" + title + '\'' +
-                ", id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", deadline=" + deadline +
-                ", prerequisites=" + prerequisites +
-                ", budget=" + budget +
-                '}';
-    }
-    public String toHtml(){
 
-        String list ="";
-        list += "<li>" ;
-        list += "id :"+ id +"<br/>";
-        list += "title :"+ title +"<br/>";
-        String skills="<ul>";
-
-        for (int j=0;j<prerequisites.size() ; j++){
-            skills += "<li>";
-            skills += prerequisites.get(j).getName()+"<br/>";
-            skills += prerequisites.get(j).getPoint()+"<br/>";
-            skills += "</li>";
-        }
-        list += skills+"</ul>";
-        list += "description : "+ description+"<br/>";
-        list += "budget : "+ budget+"<br/>";
-        list += "deadline : " + deadline+"<br/>";
-        list += "<img src="+ imageUrl+" alt="+title+">";
-        list += "</li>";
-
-
-        return list;
-    }
 }

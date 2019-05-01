@@ -20,7 +20,7 @@ public class EndorseController extends HttpServlet {
 		String id = req.getParameter("id");
 		User u = udb.getUser(Integer.parseInt(id));
 		String skillName = req.getParameter("skillName");
-		boolean status = u.updateUserSkill(skillName, udb.getCurrentUser().getId());
+		boolean status = u.updateUserSkill(skillName, udb.getUser(1).getId());
 
 		String msg = "";
 		JSONObject jsonObject;

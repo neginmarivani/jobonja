@@ -24,7 +24,9 @@ public class ProjectsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		pdb.getProjectFromServer();
-		ArrayList<Project> list = pdb.projectsForThisUser(udb.getUser(1));
+
+//		ArrayList<Project> list = pdb.projectsForThisUser(udb.getUser(1));
+		ArrayList<Project> list =  pdb.getProjectsFromDB();
 
 		Gson gson = new Gson();
 		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<User>>() {

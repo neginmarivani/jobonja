@@ -25,13 +25,13 @@ public class saveBidController extends HttpServlet {
 		Project p = pdb.getProject(projectId, false);
 		int amount = Integer.parseInt(req.getParameter("bidAmount"));
 
-		boolean status = adb.UserHasBidForProject(p.getTitle(), udb.getCurrentUser());
+		boolean status = adb.UserHasBidForProject(p.getTitle(), udb.getUser(1));
 
 		String msg = "";
 		JSONObject jsonObject;
 		String myJson;
 		if (!status) {
-			Bid bid = new Bid(p, udb.getCurrentUser(), amount);
+			Bid bid = new Bid(p, udb.getUser(1), amount);
 			adb.addBid(p.getTitle(), bid);
 			jsonObject = new JSONObject();
 			jsonObject.put("msg", "پیشنهاد شما با موفقیت ثبت شد ");

@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
 
 		request.setAttribute("currentUserId", request.getParameter("un"));
 		int id = Integer.parseInt(request.getParameter("un"));
-		udb.setCurrentUser(id);
+		//udb.setCurrentUser(id);
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 
 	}

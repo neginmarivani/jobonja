@@ -28,8 +28,7 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User u = udb.getCurrentUser();
-		udb.removeUser(u.getId());
+
 		ArrayList<User> users = udb.getUsers();
 
 		Gson gson = new Gson();

@@ -1,11 +1,11 @@
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ProjectsDB {
-	private AuctionDB auctionDB = AuctionDB.getInstance();
+//	private AuctionDB auctionDB = AuctionDB.getInstance();
 	private Tools tools = Tools.getInstance();
 
 	private static ProjectsDB singlton_instance = null;
@@ -21,26 +21,27 @@ public class ProjectsDB {
 
 	}
 
-	private ArrayList<Project> jobonjaProjects = new ArrayList<Project>();
 
-	public Project getProject(String Name, boolean byTitle) {
-
-		for (int i = 0; i < jobonjaProjects.size(); i++) {
-			if (byTitle) {
-				if (jobonjaProjects.get(i).getTitle().equals(Name)) {
-					return jobonjaProjects.get(i);
-				}
-			} else {
-				if (jobonjaProjects.get(i).getId().equals(Name)) {
-					return jobonjaProjects.get(i);
-				}
-			}
-		}
-		return new Project();
+	public Project getProject(String name, boolean byTitle) {
+		return getProjectFromDB(name,byTitle);
 	}
+	public  Project getProjectFromDB(String id, boolean byTitle) {
+		Connection conn = ConnectDB.getConnetion();
+		Project p = null;
+		try{
+			Statement st =conn.createStatement();
+			ResultSet projectTable;
+			if(byTitle)
+				projectTable=st.executeQuery("SELECT * FROM Project WHERE title='"+ id+"'");
+			else {
+				projectTable = st.executeQuery("SELECT * FROM Project WHERE id='" + id + "'");
 
-	public void add(Project x) {
-		jobonjaProjects.add(x);
+			}
+			p = convertTableToProject(projectTable);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return p;
 	}
 
 	public void addProject(JSONObject jObject) {
@@ -51,17 +52,42 @@ public class ProjectsDB {
 		String description = jObject.getString("description");
 		String id = jObject.getString("id");
 		String titleTemp = jObject.getString("title");
-		Timestamp timestamp = new Timestamp(jObject.getInt("deadline"));
+		int timestamp = jObject.getInt("deadline");
+		int creationDate = jObject.getInt("creationDate");
 
 		int budgetTemp = jObject.getInt("budget");
-		Project p = new Project(titleTemp, id, description, imageUrl, timestamp, projectSkillsTemp, budgetTemp);
+		Project p = new Project(titleTemp, id, description, imageUrl, timestamp, creationDate,
+		projectSkillsTemp, budgetTemp);
+		addProjectToDB(p);
+	}
+	public void addProjectToDB(Project p){
+		Connection conn = ConnectDB.getConnetion();
+		try {
+			PreparedStatement st = conn.prepareStatement("INSERT INTO Project VALUES (?,?,?,?,?,?,?)");
+			st.setString(1, p.getTitle());
+			st.setString(2, p.getId());
+			st.setString(3, p.getDescription());
+			st.setString(4, p.getImageUrl());
+			st.setInt(5, p.getDeadline());
+			st.setInt(6,p.getBudget());
+			st.setInt(7, p.getCreationDate());
+			st.executeUpdate();
 
-		jobonjaProjects.add(p);
-		auctionDB.addProject(titleTemp);
-		// debug
-		// System.out.println(p.toString());
+			for(int i=0;i<p.getPrerequisites().size();i++){
+
+                PreparedStatement st2 = conn.prepareStatement("INSERT INTO ProjectSkill VALUES (?,?,?)");
+                st2.setString(1,p.getPrerequisites().get(i).getName());
+                st2.setInt(2,p.getPrerequisites().get(i).getPoint());
+                st2.setString(3,p.getId());
+                st2.executeUpdate();
+            }
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
+
 
 	public void getProjectFromServer() throws java.io.IOException {
 
@@ -74,37 +100,76 @@ public class ProjectsDB {
 		}
 	}
 
-	public ArrayList<Project> getjobonjaProjects() {
-		return jobonjaProjects;
-	}
+	public ArrayList<Project> getProjectsFromDB(){
+		ArrayList<Project> projects=new ArrayList<Project>();
+		Connection conn = ConnectDB.getConnetion();
+		Project p = null;
+		try{
+			Statement st =conn.createStatement();
+			ResultSet projectsTable=st.executeQuery("SELECT * FROM Project ");
+			while(projectsTable.next()){
+				p = convertTableToProject(projectsTable);
+				projects.add(p);
+			}
 
-	public void setjobonjaProjects(ArrayList<Project> jobonjaProjects) {
-		this.jobonjaProjects = jobonjaProjects;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return projects;
 	}
+	private Project convertTableToProject(ResultSet projectsTable){
+		Project p = null;
+		try {
+			ArrayList<Skill> prerequisites = getProjectSkill(projectsTable.getString("id"));
+			p = new Project(projectsTable.getString("title"), projectsTable.getString("id"),
+					projectsTable.getString("description"),projectsTable.getString("imageUrl")
+					, projectsTable.getInt("deadline"), projectsTable.getInt("creationDate"),
+					prerequisites,projectsTable.getInt("budget"));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return p;
+	}
+	public ArrayList<Skill> getProjectSkill(String id){
+		ArrayList<Skill> out =new ArrayList<Skill>();
+		Connection conn = ConnectDB.getConnetion();
+		try{
+			Statement st =conn.createStatement();
+			ResultSet skillTable=st.executeQuery("SELECT * FROM ProjectSkill WHERE projectId= '"+ id +"'");
+			while(skillTable.next()){
+				String name=skillTable.getString("name");
+				int point=skillTable.getInt("point");
+				out.add(new Skill(name,point));
+			}
 
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return out;
+	}
 	public ArrayList<Project> projectsForThisUser(User user) {
-		ArrayList<Project> out = new ArrayList<Project>();
 
-		for (int i = 0; i < jobonjaProjects.size(); i++) {
-			Project p = jobonjaProjects.get(i);
+		ArrayList<Project> out = new ArrayList<Project>();
+		ArrayList<Project> projects=getProjectsFromDB();
+		for (int i = 0; i < projects.size(); i++) {
+			Project p = projects.get(i);
 			if (GoodEnough(p, user))
 				out.add(p);
 		}
 		return out;
 	}
 
-	public boolean findIn(ArrayList<Project> list, Project p) {
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getId().equals(p.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean findIn(ArrayList<Project> list, Project p) {
+//		for (int i = 0; i < list.size(); i++) {
+//			if (list.get(i).getId().equals(p.getId())) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	public boolean GoodEnough(Project p, User user) {
 		ArrayList<Skill> prerequisites = p.getPrerequisites();
-
 		ArrayList<Skill> userSkills = user.getSkills();
 		boolean flag = false;
 		for (int i = 0; i < prerequisites.size(); i++) {

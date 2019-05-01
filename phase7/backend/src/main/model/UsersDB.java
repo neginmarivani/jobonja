@@ -21,9 +21,9 @@ public class UsersDB {
 		return singlton_instance;
 	}
 
-	private ArrayList<User> jobonjaUsers = new ArrayList<User>();
-	private ArrayList<String> jobonjaSkills = new ArrayList<String>();
-	private User currentUser;
+//	private ArrayList<User> jobonjaUsers = new ArrayList<User>();
+//	private ArrayList<String> jobonjaSkills = new ArrayList<String>();
+
 	Tools tools = Tools.getInstance();
 
 	public UsersDB() {
@@ -37,61 +37,45 @@ public class UsersDB {
 
 	}
 
-	public User getCurrentUser() {
-		return currentUser;
-	}
 
-	public void setCurrentUser(int id) {
-		for (int i = 0; i < jobonjaUsers.size(); i++) {
-			if (jobonjaUsers.get(i).getId() == id) {
-				this.currentUser = jobonjaUsers.get(i);
-			}
-		}
-	}
+//	public int getSize() {
+//		return jobonjaUsers.size();
+//	}
 
-	public int getSize() {
-		return jobonjaUsers.size();
-	}
 
-	public User getUser(String usrName) throws NullPointerException {
+//	public ArrayList<String> getJobonjaSkills() {
+//		return jobonjaSkills;
+//	}
 
-		for (int i = 0; i < this.jobonjaUsers.size(); i++) {
-			if (this.jobonjaUsers.get(i).getUserName().equals(usrName)) {
-				return this.jobonjaUsers.get(i);
-			}
-		}
-		return new User();
-	}
+//	public void setJobonjaSkills(ArrayList<String> jobonjaSkills) {
+//		this.jobonjaSkills = jobonjaSkills;
+//	}
 
-	public ArrayList<String> getJobonjaSkills() {
-		return jobonjaSkills;
-	}
-
-	public void setJobonjaSkills(ArrayList<String> jobonjaSkills) {
-		this.jobonjaSkills = jobonjaSkills;
-	}
-
-	public void removeUser(int id) {
-		for (int i = 0; i < jobonjaUsers.size(); i++) {
-			if (jobonjaUsers.get(i).getId() == id) {
-				jobonjaUsers.get(i).hide();
-			}
-		}
-	}
 
 	public User getUser(int id) {
-//		for (int i = 0; i < this.jobonjaUsers.size(); i++) {
-//			if (this.jobonjaUsers.get(i).getId() == id) {
-//				// System.out.println(jobonjaUsers.get(i).getUserName());
-//				return this.jobonjaUsers.get(i);
-//			}
-//		}
+
 		return getUserFromDB(id);
 	}
 
 	public ArrayList<User> getUsers() {
-		return jobonjaUsers;
-	}
+		ArrayList<User> users=new ArrayList<User>();
+        Connection conn = ConnectDB.getConnetion();
+        User u = null;
+        try{
+            Statement st =conn.createStatement();
+            ResultSet usersTable=st.executeQuery("SELECT * FROM USER ");
+            while(usersTable.next()){
+                u = convertTableToUser(usersTable);
+                users.add(u);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return users;
+
+
+    }
 
 	public void getSkillsFromServer() throws IOException {
 		String json = tools.getJsonStr("http://142.93.134.194:8000/joboonja/skill");
@@ -99,13 +83,13 @@ public class UsersDB {
 		for (int i = 0; i < jsonarray.length(); i++) {
 			JSONObject jsonObject = jsonarray.getJSONObject(i);
 
-			jobonjaSkills.add(jsonObject.getString("name"));
+			addSkillToDB(jsonObject.getString("name"));
 		}
 	}
 
-	public void add(User x) {
-		jobonjaUsers.add(x);
-	}
+//	public void add(User x) {
+//		jobonjaUsers.add(x);
+//	}
 
 	public void addUser	(JSONObject jObject) {
 		int id = jObject.getInt("ID");
@@ -159,7 +143,7 @@ public class UsersDB {
 			Statement st =conn.createStatement();
 			ResultSet skillTable=st.executeQuery("SELECT * FROM UserSkill WHERE userId="+ Integer.toString(id));
 			while(skillTable.next()){
-				String name=skillTable.getString("Name");
+				String name=skillTable.getString("name");
 				int point=skillTable.getInt("point");
 				out.add(new Skill(name,point));
 			}
@@ -171,21 +155,38 @@ public class UsersDB {
 	}
 	public  User getUserFromDB(int id) {
 		Connection conn = ConnectDB.getConnetion();
-		User u = null;
+        User u = null;
 		try{
 			Statement st =conn.createStatement();
 			ResultSet userTable=st.executeQuery("SELECT * FROM USER WHERE id="+ Integer.toString(id));
-			ArrayList<Skill> selectedSkill =getUserSkill(userTable.getInt("id"));
-			System.out.println(userTable.getInt("id"));
-			u= new User(userTable.getInt("id"),userTable.getString("bio"),
-					userTable.getString("jobTitle"),"Ali"
-					, userTable.getString("userFamilyName"),selectedSkill,
-					userTable.getString("ImageURL"));
-
+            u = convertTableToUser(userTable);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return u;
+	}
+	private User convertTableToUser(ResultSet userTable){
+        User u = null;
+        try {
+            ArrayList<Skill> selectedSkill = getUserSkill(userTable.getInt("id"));
+            u = new User(userTable.getInt("id"), userTable.getString("bio"),
+                    userTable.getString("jobTitle"), "Ali"
+                    , userTable.getString("userFamilyName"), selectedSkill,
+                    userTable.getString("ImageURL"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return u;
+    }
+	public void addSkillToDB(String skill) {
+		Connection conn = ConnectDB.getConnetion();
+		try {
+		PreparedStatement st = conn.prepareStatement("INSERT INTO SystemSkill VALUES (?)");
+		st.setString(1,skill);
+		st.executeUpdate();
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+	}
 	}
 	public  void addUserToDB(User u) {
 

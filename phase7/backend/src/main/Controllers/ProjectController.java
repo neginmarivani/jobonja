@@ -29,10 +29,9 @@ public class ProjectController extends HttpServlet {
 			throws ServletException, IOException {
 
 		pdb.getProjectFromServer();
-		ArrayList<Project> list = pdb.projectsForThisUser(udb.getCurrentUser());
+//		ArrayList<Project> list = pdb.projectsForThisUser(udb.getUser(1));
 		String id = request.getParameter("id");
-		this.p = pdb.getProject(id, false);
-
+		this.p = pdb.getProject(id,false);
 		JSONObject jsonObject = new JSONObject(p);
 		String myJson = jsonObject.toString();
 		response.setContentType("application/json; charset=UTF-8;");
