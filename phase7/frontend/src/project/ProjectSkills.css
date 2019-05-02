@@ -1,0 +1,29 @@
+.skills{
+	color :#008080;
+	text-align: left;
+	background-color:rgb(245,245,245);
+	border-style: dashed none groove none;
+	border-color:  lightblue white rgb(245,245,245) white;
+	margin-left:0px;
+	margin-right:0px;
+	padding :20px 20px 20px 20px;
+}
+.skillElem i{
+	border-style:none ;
+	padding :0px 2px 0px 2px;
+	border-radius: 2px;
+	margin :5px 5px 5px 5px;
+	background-color:lightblue;
+}
+
+.skillElem{
+	color : black;
+	font-size :10px;
+	display:inline;
+	border-style: none;
+	border-radius: 5px;
+	padding :2px 10px 2px 10px;
+	margin-left :20 px;
+	margin-right :20px;
+	background-color :white;
+}

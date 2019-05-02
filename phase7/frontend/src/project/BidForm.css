@@ -1,0 +1,11 @@
+.BidForm form{
+	margin :5px 5px 5px 5px;
+	padding :5px 5px 5px 5px;
+}
+.BidForm form input{
+	padding :5px 5px 5px 5px;
+}
+.BidForm {
+	margin :20px 20px 20px 20px;
+	text-align:right;
+}
