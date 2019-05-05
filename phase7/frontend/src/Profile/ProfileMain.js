@@ -26,7 +26,7 @@ class ProfileMain extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     
-    axios.post(`http://localhost:8080/Phase-2/AddSkillController?nameOfwantedSkill=${event.target.value}`)
+    axios.post(`http://localhost:8080/AddSkillController?nameOfwantedSkill=${event.target.value}`)
       .then((response)=> {
         this.setState({postStatus : response.status , msg : response.data.msg})
       },error=>{

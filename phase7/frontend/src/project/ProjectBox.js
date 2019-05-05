@@ -23,7 +23,7 @@ class ProjectBox extends Component {
     this.setState({flag :false});
     event.preventDefault();
 
-    axios.put(`http://localhost:8080/Phase-2/saveBidController?project=${this.props.project.id}&bidAmount=${event.target.elements.bidAmount.value}`).then((response)=> {
+    axios.put(`http://localhost:8080/saveBidController?project=${this.props.project.id}&bidAmount=${event.target.elements.bidAmount.value}`).then((response)=> {
         this.setState({postStatus : response.status , msg : response.data.msg}
           )
       },error=>{

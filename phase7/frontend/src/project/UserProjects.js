@@ -21,6 +21,7 @@ class UserProjects extends Component {
                   this.props.projectsList.map((project ,i)=><li key={i} onClick={this.handleRedirect(project.id)} ><ProjectsPreview project={project}/></li> ) 
               }
             </ul>
+           
           </div>
         );
     }

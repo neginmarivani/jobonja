@@ -26,7 +26,7 @@ componentWillUnmount=()=>{
       match: { params }
     } = this.props;
 
-   let response = await Axios.get('http://localhost:8080/Phase-2/project', {
+   let response = await Axios.get('http://localhost:8080/project', {
     params: {
       id:params.projectId.slice(1)
     } });

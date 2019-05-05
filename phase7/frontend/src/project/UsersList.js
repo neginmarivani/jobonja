@@ -22,7 +22,7 @@ class UsersList extends Component {
       console.log(event.target.value);
           if(event.target.value ==null){
              
-            Axios.get('http://localhost:8080/Phase-2/users').then((response )=> {
+            Axios.get('http://localhost:8080/users').then((response )=> {
       
               this.setState({ usersList : response.data}); 
              
@@ -31,7 +31,7 @@ class UsersList extends Component {
            });
           }
           else{
-              Axios.get(`http://localhost:8080/Phase-2/searchInUsersController?searchQuery=${event.target.value}`).then((response )=> {
+              Axios.get(`http://localhost:8080/searchInUsersController?searchQuery=${event.target.value}`).then((response )=> {
             
                 this.setState({ usersList : response.data}); 
                  
@@ -43,7 +43,7 @@ class UsersList extends Component {
   }
   componentDidMount() {
         
-    Axios.get('http://localhost:8080/Phase-2/users').then((response )=> {
+    Axios.get('http://localhost:8080/users').then((response )=> {
       
        this.setState({ usersList : response.data}); 
       
@@ -52,7 +52,7 @@ class UsersList extends Component {
     });
 }
 render() {
-  console.log(this.state.usersList)
+
     return ( 
       
       <div className="userPrevElem" >

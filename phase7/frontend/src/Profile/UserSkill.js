@@ -14,7 +14,7 @@ class UserSkill extends Component {
           };
       }
     EndorseCtrl =text=>()=>{
-        axios.put(`http://localhost:8080/Phase-2/EndorseController?id=${this.props.user.id}&skillName=${text}`)
+        axios.put(`http://localhost:8080/EndorseController?id=${this.props.user.id}&skillName=${text}`)
           .then((response)=> {
             this.setState({postStatus : response.status , msg : response.data.msg ,index :1})
           },error=>{

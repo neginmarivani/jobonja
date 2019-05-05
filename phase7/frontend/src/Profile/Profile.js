@@ -17,7 +17,7 @@ class Profile extends Component {
       this.setState({render: true}) //After 1 second, set render to true
     }.bind(this), 1000)
 
-    Axios.get('http://localhost:8080/Phase-2/users').then((response )=> {
+    Axios.get('http://localhost:8080/users').then((response )=> {
       
        this.setState({ usersList : response.data}); 
       

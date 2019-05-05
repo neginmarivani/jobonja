@@ -8,11 +8,12 @@ class Home extends Component {
     super(props);
     this.state = {
       searchProjectQuery:"",
-      projectsList:[]
+      projectsList:[],
+      visible :5
   };
   }
   componentWillMount =()=>{
-    Axios.get('http://localhost:8080/Phase-2/ProjectsController').then((response )=> {
+    Axios.get(`http://localhost:8080/ProjectsController?number=${this.state.visible}`).then((response )=> {
           
       this.setState({ projectsList : response.data}); 
      
@@ -20,11 +21,26 @@ class Home extends Component {
        console.log(' server error ')
    });
   }
+  updateProjects =()=>{
+    Axios.get(`http://localhost:8080/ProjectsController?number=${this.state.visible}`).then((response )=> {
+          
+      this.setState({ projectsList : response.data}); 
+     
+   }).catch( error =>{
+       console.log(' server error ')
+   });
+
+  }
+  loadMore =()=>{
+    this.setState((prev) =>{return {visible:prev.visible + 5}; });
+    this.updateProjects()
+    
+  }
   onSubmit =(event)=>{
     console.log(event.target.value);
         if(event.target.value ==null){
            
-            Axios.get('http://localhost:8080/Phase-2/ProjectsController').then((response )=> {
+            Axios.get(`http://localhost:8080/ProjectsController?number=${this.state.visible}`).then((response )=> {
           
                 this.setState({ projectsList : response.data}); 
                
@@ -33,7 +49,7 @@ class Home extends Component {
              });
         }
         else{
-            Axios.get(`http://localhost:8080/Phase-2/SearchInProjectsController?searchQuery=${event.target.value}`).then((response )=> {
+            Axios.get(`http://localhost:8080/SearchInProjectsController?searchQuery=${event.target.value}`).then((response )=> {
           
                 this.setState({ projectsList : response.data}); 
                
@@ -62,10 +78,17 @@ class Home extends Component {
                    <Userslist/>
                 </div>
                 <div className = "col-xs-8 col-sm-6 col-md-7 col-lg-8">
-                   <UserProjects projectsList={this.state.projectsList} />
+                   <UserProjects projectsList={this.state.projectsList} onSubmit={this.loadMore}/>
                 </div>
+                <div>
+                   {this.state.visible && <button onClick={this.loadMore} type="button" className ="loadMoreButton ">loadMore</button>
+                      }
+                </div>
+                
             </div>
+            
           </div>
+     
           </div>
           
         </div>

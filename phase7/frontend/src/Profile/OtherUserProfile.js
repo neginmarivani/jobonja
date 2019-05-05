@@ -28,7 +28,7 @@ class OtherUserProfile extends Component {
           match: { params }
         } = this.props;
     
-       let response = await Axios.get('http://localhost:8080/Phase-2/UserController', {
+       let response = await Axios.get('http://localhost:8080/UserController', {
         params: {
           id:params.userId.slice(1)
         } });
