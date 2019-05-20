@@ -1,0 +1,25 @@
+.rmvSkillcontainer {
+    padding: 10px;
+  margin-left: 10%;
+  /* margin-right: 500px; */
+  height: 200px;
+  width:80%;
+
+}
+.rmvSkillbtn{
+    margin: 10px;
+    float:left;
+    background-color:aliceblue;
+}
+
+span.badge.b1{
+    background-color: red;
+     border-radius: 2px;
+     color:white;
+}
+
+span.badge.b2{
+    background-color:red;
+    border-radius: 2px;
+    color:white;
+}
