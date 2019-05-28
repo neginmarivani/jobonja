@@ -1,0 +1,30 @@
+.deadline{
+	color: #e8dede;
+	
+}
+.budget{
+	color :#008080;
+}
+.infoText{
+    font-family : 'IRANSans' !important;
+    text-align: right;
+    font-size : 14px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top :20px;
+    display: inline;
+     
+  }
+  .projectPic{
+    text-align: center;
+    display: inline;
+  }
+  .projectPic img{
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top :20px;
+      width: 150px;
+     height: 150px;
+    
+  }

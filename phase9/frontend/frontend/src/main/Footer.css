@@ -1,0 +1,17 @@
+.footer{
+    height: 60px;
+    background-color :#474545;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width : 100%;
+}
+.text-block{
+   color : #5c5757;
+   font-size :16px;
+   font-family : IRANSans;
+   line-height: 62px;
+   text-align:center;
+   
+}

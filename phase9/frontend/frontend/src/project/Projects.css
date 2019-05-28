@@ -1,0 +1,11 @@
+.top{
+	
+	height : 100px;
+	weight :100%;
+	background-color: lightblue;
+}
+.middle{
+	min-height: calc(100vh - 60px - 40px - 100px);
+	weight :100%;
+	background-color :rgb(245,245,245) ;
+}

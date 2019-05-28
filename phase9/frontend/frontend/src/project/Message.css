@@ -1,0 +1,28 @@
+.success{
+	
+	margin-left :20 px;
+	margin-right :20px;
+}
+.success p{
+	color : green;
+	padding :15px 15px 15px 15px;
+	
+}
+.success p i{
+	padding-right: 5px;
+	padding-left: 15px;
+}
+.fail{
+	
+	margin-left :20 px;
+	margin-right :20px;
+}
+.fail p{
+	color : red;
+	padding :15px 15px 15px 15px;
+	
+}
+.fail p i{
+	padding-right: 5px;
+	padding-left: 15px;
+}
